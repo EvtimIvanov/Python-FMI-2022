@@ -1,0 +1,20 @@
+body{
+    display: flex;
+    justify-content: center;
+    margin-top:8rem;
+}
+
+.card-title{
+    font-weight: bolder;
+    font-size:20px;
+    margin-bottom:1rem;
+}
+button{
+    margin-top:1rem;
+}
+a {
+    font-size: 12px;
+}
+input{
+    width:92%;
+}

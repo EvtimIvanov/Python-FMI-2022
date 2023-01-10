@@ -1,0 +1,23 @@
+tbody{
+    display: flex;
+    justify-content: space-evenly;
+    width:100%;
+}
+
+table{
+    width:100%;
+}
+tr{
+    display: flex;
+    justify-content: space-evenly;
+    border-bottom:2px solid lightgrey;
+
+
+}
+td, th{
+    width: 10rem !important;
+    text-align: center;
+}
+#history{
+    margin:3rem;
+}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <nav>
+        <img class="title-image" src="{% static 'images/logo.png' %}">
+        <h1 class="title header">Welcome to Dragons {{user}}</h1>
+
+        <div class="nav-end">
+            <a class="button" href="/">My Dragons</a>
+            <a class="button active" href="/my_sale">My Sale</a>
+            <a class="button" href="/market">Buy</a>
+            <a class="button" href="/breed">Breed</a>
+            <a class="button" href="/fight">Fight</a>
+            <a class="button" logout>Logout</a>
+        </div>
+        
+    </nav>
+    {% block site-info %} {% endblock %}
+</div>
+
+{% endblock %}

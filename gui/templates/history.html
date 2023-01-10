@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <nav>
+        <img class="title-image" src="{% static 'images/logo.png' %}">
+        <h1 class="title header">Welcome to Dragons {{user}}</h1>
+        
+        <div class="nav-end">
+            <a class="button" href="/">My Dragons</a>
+            <a class="button" href="/my_sale">My Sale</a>
+            <a class="button" href="/market">Buy</a>
+            <a class="button" href="/breed">Breed</a>
+            <a class="button" href="/fight">Fight</a>
+            <a class="button active" href="/history">History</a>
+            <a class="button" href="/logout">Logout</a>
+        </div>
+        
+    </nav>
+    <div id="history">
+        <table>
+            <tr>
+                <th>Name of the winner</th>
+                <th>Owner of winning dragon</th>
+                <th>Name of the loser</th>
+                <th>Owner of the losing dragon</th>
+                <th>Stolen money</th>
+                <th>Rounds</th>
+            </tr>
+            {% for fight in fights %}
+            <tr>
+                <td>
+                    {{fight.dragon_winner_name}}
+                </td>
+                <td>
+                    {{fight.dragon_winner_owner}}
+                </td>
+                <td>
+                    {{fight.dragon_loser_name}}
+                </td>
+                <td>
+                    {{fight.dragon_loser_owner}}
+                </td>
+                <td>
+                    {{fight.stolen_money}}
+                </td>
+                <td>
+                    {{fight.rounds}}
+                </td>
+            </tr>
+            
+                
+            {% endfor %}
+        </table>
+
+        </div>
+    
+</div>
+<link rel="stylesheet" href="{% static 'history.css' %}" />
+{% endblock %}

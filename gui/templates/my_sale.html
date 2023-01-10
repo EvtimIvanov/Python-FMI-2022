@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <nav>
+        <img class="title-image" src="{% static 'images/logo.png' %}">
+        <h1 class="title header">Welcome to Dragons {{user}}</h1>
+
+        <div class="nav-end">
+            <a class="button" href="/">My Dragons</a>
+            <a class="button active" href="/my_sale">My Sale</a>
+            <a class="button" href="/market">Buy</a>
+            <a class="button" href="/breed">Breed</a>
+            <a class="button" href="/fight">Fight</a>
+            <a class="button" href="/history">History</a>
+            <a class="button" href="/history">Logout</a>
+        </div>
+        
+    </nav>
+    <div id="dragons">
+
+            {% for dragon in dragons %}
+            <div data-id="{{dragon.pk}}" class="dragon">
+                <img class="dragon-image" src="{% static 'images/1.png' %}">
+                <table>
+                    <tr>
+                        <td>{{dragon.name}}</td>
+                    </tr>
+                    <tr>
+                        <td>hp</td>
+                        <td>{{dragon.hp}}</td>
+                    </tr>
+                    <tr>
+                        <td>attack</td>
+                        <td>{{dragon.attack}}</td>
+                    </tr>
+                    <tr>
+                        <td>defense</td>
+                        <td>{{dragon.defense}}</td>
+                    </tr>
+                    <tr>
+                        <td>speed</td>
+                        <td>{{dragon.speed}}</td>
+                    </tr>
+                    {% if dragon.for_sale == True %}
+                    <tr>
+                        <td>price</td>
+                        <td>{{dragon.price}}</td>
+                    </tr>
+                    <tr>    
+                        <td>
+                            <form>
+                                {% csrf_token %}
+                                <button data-id="{{dragon.pk}}" class="remove-dragon-from-market">Remove from sell</button>
+
+                            </form>
+                        </td>
+
+                    </tr>
+                    {% else %}
+                    <form>
+                        {% csrf_token %}
+                        <tr>
+                            <td>Price</td>
+                            <td><input id="price-{{dragon.pk}}"></input></td>
+                        </tr>
+                        <tr>
+                            <td><button data-id="{{dragon.pk}}" class="sell-dragon">Sell</button></td>
+                        </tr>
+                    </form>
+                    {% endif %}
+
+                </table>
+            </div>
+            {% endfor %}
+
+        
+    
+</div>
+</div>
+
+{% endblock %}

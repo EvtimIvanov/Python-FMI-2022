@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <nav>
+        <img class="title-image" src="{% static 'images/logo.png' %}">
+        <h1 class="title header">Welcome to Dragons {{user}} {{player.money}}</h1>
+
+        <div class="nav-end">
+            <a class="button" href="/">My Dragons</a>
+            <a class="button" href="/my_sale">My Sale</a>
+            <a class="button" href="/market">Buy</a>
+            <a class="button active" href="/breed">Breed</a>
+            <a class="button" href="/fight">Fight</a>
+            <a class="button" href="/history">History</a>
+            <a class="button" href="/logout">Logout</a>
+        </div>
+        
+    </nav>
+    <div id="breeding" class="breeding-section">
+        <div style="justify-content:space-evenly">
+            <div id="first-dragon" class="item">
+                <img class="dragon-image" src="{% static 'images/dragon.png' %}">
+                <p id="first-dragon-name" class="text-centered">Nothing choosen</p>
+                <input id="dragon-id1" class="hidden" value="-1">
+                <button class="button return-dragon">Return</button>
+            </div>
+            <div id="second-dragon" class="item">
+                <img class="dragon-image" src="{% static 'images/dragon.png' %}">
+                <p id="second-dragon-name" class="text-centered">Nothing choosen</p>
+                <input id="dragon-id2" class="hidden" value="-1">
+                <button class="button return-dragon">Return</button>
+            </div>
+        </div> 
+        <form style="display:flex; flex-direction: column; margin-top:2rem">
+            {% csrf_token %}
+            <input style="width:12%; align-self:center" id="name-of-dragon" type="text" placeholder="Name of dragon"/> 
+            <button id="submit-breed" class="button button-center add-top-margin">Breed</button>
+        </form>
+    </div>
+    <div id="dragons">
+
+        {% for dragon in dragons %}
+        <div data-id="{{dragon.pk}}" class="dragon">
+            <img class="dragon-image" src="{% static 'images/1.png' %}">
+            <table>
+                <tr>
+                    <th id="{{dragon.pk}}">{{dragon.name}}</th>
+                </tr>
+                <tr>
+                    <td>hp</td>
+                    <td>{{dragon.hp}}</td>
+                </tr>
+                <tr>
+                    <td>attack</td>
+                    <td>{{dragon.attack}}</td>
+                </tr>
+                <tr>
+                    <td>defense</td>
+                    <td>{{dragon.defense}}</td>
+                </tr>
+                <tr>
+                    <td>speed</td>
+                    <td>{{dragon.speed}}</td>
+                </tr>
+                <tr>
+                    <td>owner</td>
+                    <td>{{dragon.owner}}</td>
+                </tr>
+                <tr>
+                    <td>type</td>
+                    <td>{{dragon.type}}</td>
+                </tr>
+                <tr>
+                    <td>
+                    <button data-id="{{dragon.pk}}" class="button add-for-breeding">Add for breeding</button>
+                </td>
+                </tr>
+            </table>
+        </div>
+            
+        {% endfor %}
+
+    </div>
+
+    
+
+</div>
+{% endblock %}

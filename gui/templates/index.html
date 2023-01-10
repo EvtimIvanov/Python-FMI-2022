@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <nav>
+        <img class="title-image" src="{% static 'images/logo.png' %}">
+        <h1 class="title header">Welcome to Dragons {{user}}</h1>
+        
+        <div class="nav-end">
+            <a class="button active" href="/">My Dragons</a>
+            <a class="button" href="/my_sale">My Sale</a>
+            <a class="button" href="/market">Buy</a>
+            <a class="button" href="/breed">Breed</a>
+            <a class="button" href="/fight">Fight</a>
+            <a class="button" href="/history">History</a>
+            <a class="button" href="/logout">Logout</a>
+        </div>
+        
+    </nav>
+    <div id="dragons">
+
+            {% for dragon in dragons %}
+            <div data-id="{{dragon.pk}}" class="dragon">
+                <img class="dragon-image" src="{% static 'images/1.png' %}">
+                <table>
+                    <tr>
+                        <th>{{dragon.name}}</th>
+                    </tr>
+                    <tr>
+                        <td>hp</td>
+                        <td>{{dragon.hp}}</td>
+                    </tr>
+                    <tr>
+                        <td>attack</td>
+                        <td>{{dragon.attack}}</td>
+                    </tr>
+                    <tr>
+                        <td>defense</td>
+                        <td>{{dragon.defense}}</td>
+                    </tr>
+                    <tr>
+                        <td>speed</td>
+                        <td>{{dragon.speed}}</td>
+                    </tr>
+                    <tr>
+                        <td>owner</td>
+                        <td>{{dragon.owner}}</td>
+                    </tr>
+                </table>
+            </div>
+                
+            {% endfor %}
+
+        </div>
+    
+</div>
+
+{% endblock %}
