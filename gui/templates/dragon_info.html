@@ -5,7 +5,7 @@
     <nav>
         <img class="title-image" src="{% static 'images/logo.png' %}">
         <h1 class="title header">Welcome to Dragons {{user}} 
-            <img class="coin-image" src="{% static 'images/coin.png' %}">
+            <img class="coin-image" src="{% static 'images/' %}{{ dragon.type }}.png">
             {{player.money}}
         </h1>
 

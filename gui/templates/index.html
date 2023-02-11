@@ -23,7 +23,7 @@
     <div id="dragons">
             {% for dragon in dragons %}
             <div data-id="{{dragon.pk}}" name="{{dragon.name}}" class="dragon">
-                <img class="dragon-image" src="{% static 'images/1.png' %}">
+                <img class="dragon-image" src="{% static 'images/' %}{{ dragon.type }}.png">
                 <table>
                     <tr>
                         <th class="dragon-name">
