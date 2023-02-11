@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <nav>
+        <img class="title-image" src="{% static 'images/logo.png' %}">
+        <h1 class="title header">Welcome to Dragons {{user}} 
+            <img class="coin-image" src="{% static 'images/coin.png' %}">
+            {{player.money}}
+        </h1>
+
+        <div class="nav-end">
+            <a class="button" href="/">My Dragons</a>
+            <a class="button" href="/my_sale">My Sale</a>
+            <a class="button" href="/market">Buy</a>
+            <a class="button" href="/breed">Breed</a>
+            <a class="button" href="/fight">Fight</a>
+            <a class="button" href="/history">History</a>
+            <a class="button" href="/logout">Logout</a>
+        </div>
+        
+    </nav>
+    <div id="dragon-info-container">
+    <div id="dragon-info" data-id="{{dragon.pk}}" name="{{dragon.name}}" class="dragon">
+        <img src="{% static 'images/1.png' %}">
+        <table id="dragon-stats">
+            <tr>
+                <th id="{{dragon.pk}}">{{dragon.name}}</th>
+            </tr>
+            <tr>
+                <td>hp</td>
+                <td>{{dragon.hp}}</td>
+                {% if dragon.owner == user %}
+                <form>
+                    {% csrf_token %}
+                <td>10<img class="coin-image-upgrade" src="{% static 'images/coin.png' %}"></td>
+                <td><button class="button upgrade-stats"stats="hp">+</button></td>
+                </form>
+                {% endif %}
+            </tr>
+            <tr>
+                <td>attack</td>
+                <td>{{dragon.attack}}</td>
+                {% if dragon.owner == user %}
+                <form>
+                    {% csrf_token %}
+                <td>10<img class="coin-image-upgrade" src="{% static 'images/coin.png' %}"></td>
+                <td><button class="button upgrade-stats" stats="attack">+</button></td>
+                </form>
+                {% endif %}
+            </tr>
+            <tr>
+                <td>defense</td>
+                <td>{{dragon.defense}}</td>
+                {% if dragon.owner == user %}
+                <form>
+                    {% csrf_token %}
+                    <td>10<img class="coin-image-upgrade" src="{% static 'images/coin.png' %}"></td>
+                    <td><button class="button upgrade-stats" stats="defense">+</button></td>
+                </form>
+                {% endif %}
+            </tr>
+            <tr>
+                <td>speed</td>
+                <td>{{dragon.speed}}</td>
+                {% if dragon.owner == user %}
+                <form>
+                    {% csrf_token %}
+                <td>10<img class="coin-image-upgrade" src="{% static 'images/coin.png' %}"></td>
+                <td><button class="button upgrade-stats" stats="speed">+</button></td>
+                </form>
+                {% endif %}
+            </tr>
+            <tr>
+                <td>owner</td>
+                <td>{{dragon.owner}}</td>
+            </tr>
+            <tr>
+                <td>type</td>
+                <td>{{dragon.type}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+</div>
+
+{% endblock %}

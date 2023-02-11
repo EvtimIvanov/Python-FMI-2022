@@ -164,3 +164,41 @@ tbody{
     display:flex;
     flex-direction: column;
 }
+
+.coin-image {
+    width: 29px;
+    height:26px;
+    margin-left:1rem;
+}
+
+#search-dragons{
+    margin-top:1rem;
+    margin-left:2rem;
+    width: 16rem;
+}
+
+#dragon-info{
+    width: 60rem;
+    height: 30rem;
+    display: flex;
+}
+
+#dragon-info-container{
+    display:flex;
+    justify-content: center;
+}
+
+#dragon-stats{
+    margin:2rem;
+}
+
+#dragon-stats tr {
+    display:flex;
+    height:4rem;
+    font-size:1.5rem;
+}
+
+.coin-image-upgrade{
+    width: 28px;
+    height: 15px;
+}

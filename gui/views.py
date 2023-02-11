@@ -12,7 +12,8 @@ from .models import Dragon, Fight, Player
 def index(request):
     """Welcome page."""
     context = {
-        'dragons': Dragon.objects.filter(owner=request.user)
+        'dragons': Dragon.objects.filter(owner=request.user),
+        'player': Player.objects.get(user=request.user)
     }
     return render(request, 'index.html', context)
 
@@ -20,7 +21,8 @@ def index(request):
 def my_sale(request):
     """My sale page"""
     context = {
-        'dragons': Dragon.objects.filter(owner=request.user)
+        'dragons': Dragon.objects.filter(owner=request.user),
+        'player': Player.objects.get(user=request.user)
     }
     return render(request, 'my_sale.html', context)
 
@@ -72,7 +74,8 @@ def buy_dragon(request, dragonId):
 def breed(request):
     """Breeding page"""
     context = {
-        'dragons': Dragon.objects.filter(owner=request.user)
+        'dragons': Dragon.objects.filter(owner=request.user),
+        'player': Player.objects.get(user=request.user)
     }
     return render(request, 'breed.html', context)
 
@@ -139,7 +142,8 @@ def fight_view(request):
             other_dragons.append(dragon)
     context = {
         'my_dragons': Dragon.objects.filter(owner=request.user),
-        'other_dragons': other_dragons
+        'other_dragons': other_dragons,
+        'player': Player.objects.get(user=request.user)
     }
     return render(request, 'fight.html', context)
 
@@ -247,7 +251,8 @@ def history(request):
     """History page"""
     fights_history = Fight.objects.filter(dragon_winner_owner=request.user) | Fight.objects.filter(dragon_loser_owner=request.user)
     context = {
-        'fights': fights_history
+        'fights': fights_history,
+        'player': Player.objects.get(user=request.user)
     }
     return render(request, 'history.html', context)
 
@@ -267,3 +272,46 @@ def register(request):
         'form': form
     }
     return render(request, 'registration/register.html', context)
+
+@login_required(login_url='/login')
+def dragon_info(request, dragonId):
+    """Dragon info page"""
+    context = {
+        'dragon': Dragon.objects.get(pk=dragonId),
+        'player': Player.objects.get(user=request.user)
+    }
+    return render(request, 'dragon_info.html', context)
+
+@login_required(login_url='/login')
+def upgrade_stats(request):
+    """Upgrade dragon stats"""
+    try:
+        id = request.POST['dragonId']
+        stats = request.POST['stats']
+    except KeyError:
+        return HttpResponseNotFound('There was problem with the request. Missing parameter id or stats')
+    
+    VALID_STATS = ['hp', 'attack', 'defense', 'speed']
+
+    if stats not in VALID_STATS:
+        return JsonResponse({'error': 'The stats that was given is invalid'})
+
+    dragon = Dragon.objects.get(pk=id)
+    player = Player.objects.get(user=request.user)
+    
+    if player.money < 10:
+        return JsonResponse({'error': 'Not enough money'})
+
+    old_stats = getattr(dragon, stats)
+
+    if old_stats*1.2 - old_stats < 1:
+        old_stats +=2
+    else:
+        old_stats*=1.2
+    setattr(dragon, stats, old_stats*1.2)
+    dragon.save()
+
+    player.money -= 10
+    player.save()
+
+    return JsonResponse({'status': 'updated'})

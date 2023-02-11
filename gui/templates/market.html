@@ -4,7 +4,10 @@
 <div class="container">
     <nav>
         <img class="title-image" src="{% static 'images/logo.png' %}">
-        <h1 class="title header">Welcome to Dragons {{user}} {{player.money}}</h1>
+        <h1 class="title header">Welcome to Dragons {{user}} 
+            <img class="coin-image" src="{% static 'images/coin.png' %}">
+            {{player.money}}
+        </h1>
 
         <div class="nav-end">
             <a class="button" href="/">My Dragons</a>
@@ -17,14 +20,19 @@
         </div>
         
     </nav>
+    <input type="text" id="search-dragons" placeholder="Search dragon by name">
     <div id="dragons">
 
             {% for dragon in dragons %}
-            <div data-id="{{dragon.pk}}" class="dragon">
+            <div data-id="{{dragon.pk}}" name="{{dragon.name}}" class="dragon">
                 <img class="dragon-image" src="{% static 'images/1.png' %}">
                 <table>
                     <tr>
-                        <td>{{dragon.name}}</td>
+                        <td>
+                            <a href="/dragon/{{dragon.pk}}">
+                                {{dragon.name}}
+                            </a>
+                        </td>
                     </tr>
                     
                     <tr>
@@ -49,13 +57,13 @@
                     </tr>
                     <tr>
                         <td>price</td>
-                        <td>{{dragon.price}}</td>
+                        <td> {{dragon.price}}</td>
                     </tr>
                     {% if dragon.owner != user %}
                     <tr>
                         <form>
                             {% csrf_token %}
-                            <td><button data-id="{{dragon.pk}}" class="buy-dragon">Buy</button></td>
+                            <td><button data-id="{{dragon.pk}}" class="buy-dragon button">Buy</button></td>
                         </form>
                     </tr>
                     {% endif %}

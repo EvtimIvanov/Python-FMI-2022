@@ -51,18 +51,6 @@ class YourTestClass(TestCase):
         default_player.money = 100
         default_player.save()
         return default_player
-
-    def test_false_is_false(self):
-        print("Method: test_false_is_false.")
-        self.assertFalse(False)
-
-    def test_false_is_true(self):
-        print("Method: test_false_is_true.")
-        self.assertTrue(False)
-
-    def test_one_plus_one_equals_two(self):
-        print("Method: test_one_plus_one_equals_two.")
-        self.assertEqual(1 + 1, 2)
     
     def test_damage_dragon1_attack_greater_than_dragon2_defense(self):
         damage_dragon1 = 100
@@ -108,10 +96,9 @@ class YourTestClass(TestCase):
         self.assertTrue(fight_result.dragon_loser_owner)
         self.assertTrue(fight_result.rounds)
 
-##Bug in this test, do tuka stignah 
     def test_transfer_stolen_money(self):
-        stolen_amount = transfer_stolen_money(self.player1, self.player2)
-        EXPECETED_STOLEN_AMOUNT = 50
+        stolen_amount = transfer_stolen_money(self.user1, self.user2)
+        EXPECETED_STOLEN_AMOUNT = 5
         self.assertEqual(EXPECETED_STOLEN_AMOUNT, stolen_amount)
 
     def test_validate_if_dragons_can_fight_with_two_different_owners(self):
@@ -122,7 +109,32 @@ class YourTestClass(TestCase):
         self.dragon2.owner = self.user1
         result = validate_if_dragons_can_fight(self.user1, self.dragon1, self.dragon2)
         self.assertEqual(result, False)
+
+    def test_index_view__client_not_logged(self):
+        response = self.client.post('/')
+        self.assertEqual(response.status_code, 302)
     
+    def test_index_view_client_logged(self):
+        self.client.login(username='user1',password='user1')
+        response = self.client.get('/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_my_sale_view__client_not_logged(self):
+        response = self.client.get('/my_sale')
+        self.assertEqual(response.status_code, 302)
+    
+    def test_my_sale_view_client_logged(self):
+        self.client.login(username='user1',password='user1')
+        response = self.client.get('/my_sale')
+        self.assertEqual(response.status_code, 200)    
+
+    def test_remove_from_market_with_valid_id(self):
+        self.client.login(username='user1',password='user1')
+        response = self.client.post('/remove_from_market/1')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "updated")
+
+
     
 
 

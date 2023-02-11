@@ -4,8 +4,10 @@
 <div class="container">
     <nav>
         <img class="title-image" src="{% static 'images/logo.png' %}">
-        <h1 class="title header">Welcome to Dragons {{user}}</h1>
-        
+        <h1 class="title header">Welcome to Dragons {{user}} 
+            <img class="coin-image" src="{% static 'images/coin.png' %}">
+            {{player.money}}
+        </h1>
         <div class="nav-end">
             <a class="button" href="/">My Dragons</a>
             <a class="button" href="/my_sale">My Sale</a>

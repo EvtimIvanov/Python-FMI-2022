@@ -136,4 +136,40 @@ $(document).ready(function(){
     
         }
     })
+
+    $('#search-dragons').bind('input', function(event){
+        let dragons = document.getElementsByClassName('dragon');
+        let dragonToSearch = event.target.value.toLocaleLowerCase();
+        let numberOfDragons = dragons.length;
+        for(var i = 0; i < numberOfDragons; i++) {
+            let nameOfDragon = dragons[i].getAttribute("name").toLocaleLowerCase()
+            if(!nameOfDragon.includes(dragonToSearch)) {
+                console.log("here")
+                dragons[i].style.display = "none";
+            } else {
+                console.log("there")
+                dragons[i].style.display = null;
+            }
+        }
+
+    })
+
+    $('.upgrade-stats').bind('click',function(event){
+        let dragonId = document.getElementById('dragon-info').getAttribute('data-id')
+        let statsName = event.target.getAttribute('stats')
+        console.log(event.target.getAttribute('stats'))
+        console.log(dragonId)
+        event.preventDefault()
+        var payload = {'csrfmiddlewaretoken': $('[name=csrfmiddlewaretoken]').val(),
+            'dragonId': dragonId, 'stats': statsName}
+
+        $.post(`update_stats`, payload, function(data){
+            if(data['status']=='updated') {
+                console.log("blabalba")
+                window.location.reload();
+            }
+        })
+    
+        
+    })
 });

@@ -16,5 +16,7 @@ urlpatterns = [
     path('breed_dragons', views.breed_dragons),
     path('fight', views.fight_view),
     path('fight_dragons', views.fight),
-    path('history', views.history)
+    path('history', views.history),
+    path('dragon/<int:dragonId>', views.dragon_info),
+    path('dragon/update_stats', views.upgrade_stats)
 ]

@@ -4,7 +4,7 @@ from django.contrib.auth.models import User, AbstractUser
 
 # Create your models here.
 class Dragon(models.Model):
-    name = models.CharField(max_length=80)
+    name = models.CharField(max_length=80, unique=True)
     hp = models.IntegerField(default=1)
     attack = models.IntegerField(default=1)
     defense = models.IntegerField(default=1)
